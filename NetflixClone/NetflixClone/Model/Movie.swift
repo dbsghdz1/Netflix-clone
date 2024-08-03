@@ -8,16 +8,16 @@
 import Foundation
 
 struct MovieData: Codable {
-  let result: [Movie]
+  let results: [Movie]
 }
 
 struct Movie: Codable {
   let id: Int?
-  let original_title: String?
-  let poster_path: String?
+  let title: String?
+  let posterPath: String?
   
-//  enum CodingKeys: String, CodingKey {
-//    case id, title
-//    case posterPath = "poster_path"
-//  }
+  enum CodingKeys: String, CodingKey {
+    case id, title
+    case posterPath = "poster_path"
+  }
 }

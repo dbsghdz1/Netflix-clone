@@ -29,9 +29,14 @@ class PosterCell: UICollectionViewCell {
     fatalError("init(coder:) has not been implemented")
   }
   
+  override func prepareForReuse() {
+     super.prepareForReuse()
+    imageView.image = nil
+  }
+  
   func configure(with movie: Movie) {
-    guard let poster_path = movie.poster_path else { return }
-    let urlString = "https://image.tmdb.org/t/p/w500/\(poster_path).jpg"
+    guard let posterPath = movie.posterPath else { return }
+    let urlString = "https://image.tmdb.org/t/p/w500\(posterPath)"
     guard let url = URL(string: urlString) else { return }
     
     DispatchQueue.global().async { [weak self] in

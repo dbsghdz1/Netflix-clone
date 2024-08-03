@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DD222B612C5E25590066D714 /* YouTubeiOSPlayerHelper in Frameworks */ = {isa = PBXBuildFile; productRef = DD222B602C5E25590066D714 /* YouTubeiOSPlayerHelper */; };
+		DD222B632C5E256D0066D714 /* YoutubeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD222B622C5E256D0066D714 /* YoutubeViewController.swift */; };
 		DD7A99B02C5A139700093D29 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD7A99AF2C5A139700093D29 /* AppDelegate.swift */; };
 		DD7A99B22C5A139700093D29 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD7A99B12C5A139700093D29 /* SceneDelegate.swift */; };
 		DD7A99B62C5A139800093D29 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DD7A99B52C5A139800093D29 /* Assets.xcassets */; };
@@ -25,6 +27,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		DD222B622C5E256D0066D714 /* YoutubeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YoutubeViewController.swift; sourceTree = "<group>"; };
 		DD7A99AC2C5A139700093D29 /* NetflixClone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NetflixClone.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DD7A99AF2C5A139700093D29 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DD7A99B12C5A139700093D29 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -49,6 +52,7 @@
 				DD7A99D82C5BDE1B00093D29 /* RxSwift in Frameworks */,
 				DD7A99DC2C5BDE2600093D29 /* RxRelay in Frameworks */,
 				DD7A99D02C5BB2E100093D29 /* SnapKit in Frameworks */,
+				DD222B612C5E25590066D714 /* YouTubeiOSPlayerHelper in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -104,6 +108,7 @@
 				DD7A99C82C5B22DD00093D29 /* PosterCell.swift */,
 				DD7A99CA2C5B419900093D29 /* SectionHeaderView.swift */,
 				DD7A99CC2C5BB0B900093D29 /* MainViewController.swift */,
+				DD222B622C5E256D0066D714 /* YoutubeViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -151,6 +156,7 @@
 				DD7A99D72C5BDE1B00093D29 /* RxSwift */,
 				DD7A99D92C5BDE2300093D29 /* RxCocoa */,
 				DD7A99DB2C5BDE2600093D29 /* RxRelay */,
+				DD222B602C5E25590066D714 /* YouTubeiOSPlayerHelper */,
 			);
 			productName = NetflixClone;
 			productReference = DD7A99AC2C5A139700093D29 /* NetflixClone.app */;
@@ -183,6 +189,7 @@
 			packageReferences = (
 				DD7A99CE2C5BB2E100093D29 /* XCRemoteSwiftPackageReference "SnapKit" */,
 				DD7A99D52C5BDE1200093D29 /* XCRemoteSwiftPackageReference "RxSwift" */,
+				DD222B5F2C5E25590066D714 /* XCRemoteSwiftPackageReference "youtube-ios-player-helper" */,
 			);
 			productRefGroup = DD7A99AD2C5A139700093D29 /* Products */;
 			projectDirPath = "";
@@ -212,6 +219,7 @@
 			files = (
 				DD7A99D42C5BDA7E00093D29 /* NetworkManager.swift in Sources */,
 				DD7A99CD2C5BB0B900093D29 /* MainViewController.swift in Sources */,
+				DD222B632C5E256D0066D714 /* YoutubeViewController.swift in Sources */,
 				DD7A99B02C5A139700093D29 /* AppDelegate.swift in Sources */,
 				DD7A99CB2C5B419900093D29 /* SectionHeaderView.swift in Sources */,
 				DD7A99C92C5B22DD00093D29 /* PosterCell.swift in Sources */,
@@ -433,6 +441,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		DD222B5F2C5E25590066D714 /* XCRemoteSwiftPackageReference "youtube-ios-player-helper" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/youtube/youtube-ios-player-helper";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.4;
+			};
+		};
 		DD7A99CE2C5BB2E100093D29 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
@@ -452,6 +468,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		DD222B602C5E25590066D714 /* YouTubeiOSPlayerHelper */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DD222B5F2C5E25590066D714 /* XCRemoteSwiftPackageReference "youtube-ios-player-helper" */;
+			productName = YouTubeiOSPlayerHelper;
+		};
 		DD7A99CF2C5BB2E100093D29 /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = DD7A99CE2C5BB2E100093D29 /* XCRemoteSwiftPackageReference "SnapKit" */;

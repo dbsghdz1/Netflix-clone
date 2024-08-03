@@ -8,6 +8,8 @@
 import UIKit
 import SnapKit
 import RxSwift
+import AVKit
+import YouTubeiOSPlayerHelper
 
 class MainViewController: UIViewController {
   
@@ -48,7 +50,7 @@ class MainViewController: UIViewController {
         self?.popularMovies = movies
         self?.collectionView.reloadData()
       }, onError: { error in
-        print("error")
+        print("error\(error)")
       }).disposed(by: disposeBag)
     
     mainViewModel.topRatedMovieSubject
@@ -57,7 +59,7 @@ class MainViewController: UIViewController {
         self?.topRatedMovies = movies
         self?.collectionView.reloadData()
       }, onError: { error in
-        print("error")
+        print("error\(error)")
       }).disposed(by: disposeBag)
     
     mainViewModel.upcomingMovieSubject
@@ -66,9 +68,9 @@ class MainViewController: UIViewController {
         self?.upcomingMovies = movies
         self?.collectionView.reloadData()
       }, onError: { error in
-        print("error")
+        print("error\(error)")
       }).disposed(by: disposeBag)
-
+    
   }
   
   private func createLayout() -> UICollectionViewLayout {
@@ -91,11 +93,22 @@ class MainViewController: UIViewController {
     section.orthogonalScrollingBehavior = .continuous
     section.interGroupSpacing = 10
     section.contentInsets = .init(top: 10, leading: 10, bottom: 20, trailing: 10)
-    return UICollectionViewLayout()
+    
+    let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(22.0))
+    
+    let header = NSCollectionLayoutBoundarySupplementaryItem(
+      layoutSize: headerSize,
+      elementKind: UICollectionView.elementKindSectionHeader,
+      alignment: .top
+    )
+    section.boundarySupplementaryItems = [header]
+    
+    return UICollectionViewCompositionalLayout(section: section)
   }
   
   private func configureUI() {
     view.backgroundColor = .black
+    
     [
       label,
       collectionView
@@ -110,6 +123,17 @@ class MainViewController: UIViewController {
       $0.top.equalTo(label.snp.bottom).offset(20)
       $0.horizontalEdges.equalTo(view.safeAreaLayoutGuide.snp.horizontalEdges)
       $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
+    }
+  }
+  
+  private func playVideoUrl(url: URL) {
+    let player = AVPlayer(url: url)
+    
+    let playerViewController = AVPlayerViewController()
+    playerViewController.player = player
+    
+    present(playerViewController, animated: true) {
+      player.play()
     }
   }
 }
@@ -129,7 +153,38 @@ enum Section: Int, CaseIterable {
 }
 
 extension MainViewController: UICollectionViewDelegate {
-  
+  func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    switch Section(rawValue: indexPath.section) {
+    case .popularMovies:
+      mainViewModel.fetchTrailerKey(movie: popularMovies[indexPath.row])
+        .observe(on: MainScheduler.instance)
+        .subscribe(onSuccess: { [weak self] key in
+          self?.navigationController?.pushViewController(YouTubePlayerViewController(key: key), animated: true)
+        }, onFailure: { error in
+          print("error")
+        }).disposed(by: disposeBag)
+      
+    case .topRatedMovies:
+      mainViewModel.fetchTrailerKey(movie: topRatedMovies[indexPath.row])
+        .observe(on: MainScheduler.instance)
+        .subscribe(onSuccess: { [weak self] key in
+          self?.navigationController?.pushViewController(YouTubePlayerViewController(key: key), animated: true)
+        }, onFailure: { error in
+          print("에러 발생: \(error)")
+        }).disposed(by: disposeBag)
+      
+    case .upcomingMovies:
+      mainViewModel.fetchTrailerKey(movie: upcomingMovies[indexPath.row])
+        .observe(on: MainScheduler.instance)
+        .subscribe(onSuccess: { [weak self] key in
+          self?.navigationController?.pushViewController(YouTubePlayerViewController(key: key), animated: true)
+        }, onFailure: { error in
+          print("error")
+        }).disposed(by: disposeBag)
+    default:
+      return
+    }
+  }
 }
 
 extension MainViewController: UICollectionViewDataSource {
@@ -172,5 +227,9 @@ extension MainViewController: UICollectionViewDataSource {
     case .upcomingMovies: return upcomingMovies.count
     default: return 0
     }
+  }
+  
+  func numberOfSections(in collectionView: UICollectionView) -> Int {
+    3
   }
 }

@@ -7,8 +7,6 @@
 
 import Foundation
 
-import Foundation
-
 struct VideoResponse: Codable {
   let results: [Video]
 }
